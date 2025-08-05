@@ -14,3 +14,9 @@ src/README.md
 <!-- badge test 2 -->
 
 <!-- badge test 3 -->
+
+Badge farming placeholder 1 (Wave 3.1)
+
+Badge farming placeholder 2 (Wave 3.1)
+
+Badge farming placeholder 3 (Wave 3.1)
