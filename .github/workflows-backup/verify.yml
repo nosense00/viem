@@ -1,24 +1,12 @@
 name: Verify
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_call:
   workflow_dispatch:
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   check:
     name: Check
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
@@ -39,11 +27,7 @@ jobs:
   build:
     name: Build
     needs: check
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
@@ -70,19 +54,11 @@ jobs:
   types:
     name: Types
     needs: check
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
       matrix:
-        version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+        version: ['5.5.2', '5.6.2', '5.7.2', '5.8.2', 'latest']
 
     steps:
       - name: Clone repository
@@ -108,11 +84,7 @@ jobs:
 
   test:
     name: Test
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       max-parallel: 3
@@ -157,11 +129,7 @@ jobs:
 
   test-envs:
     name: Test Environments
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         type: ['bun', 'node-18', 'node-20', 'node-latest', 'next', 'tsc', 'vite']
@@ -169,34 +137,18 @@ jobs:
           - type: bun
             runtime: bun
           - type: node-18
-            node-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+            node-version: 18
             runtime: node
           - type: node-20
-            node-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+            node-version: 20
             runtime: node
           - type: node-latest
-            node-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+            node-version: latest
             runtime: node
           - type: next
             runtime: next
           - type: tsc
-            node-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+            node-version: 20
             runtime: tsc
           - type: vite
             runtime: vite
@@ -217,21 +169,13 @@ jobs:
         if: ${{ matrix.runtime == 'bun' }}
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+          bun-version: 1.0.30
 
       - name: Set up Node
         if: ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+          node-version: ${{ matrix.node-version }}
 
       - name: Install Playwright Browsers
         if: ${{ matrix.runtime == 'next' || matrix.runtime == 'vite' }}
@@ -248,11 +192,7 @@ jobs:
 
   vectors:
     name: Vectors
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
@@ -269,19 +209,11 @@ jobs:
   # wagmi:
   #   name: Wagmi
   #   needs: [build, types]
-  #   runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  #   runs-on: ubuntu-latest
   #   timeout-minutes: 10
   #   strategy:
   #     matrix:
-  #       typescript-version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  #       typescript-version: ['5.4.5', '5.5.2']
 
   #   steps:
   #     - name: Clone repository

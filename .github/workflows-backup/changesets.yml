@@ -2,10 +2,6 @@ name: Changesets
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -13,10 +9,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   verify:
     name: Verify
     uses: ./.github/workflows/verify.yml
@@ -24,11 +16,7 @@ jobs:
 
   changesets:
     name: Create version pull request
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
@@ -47,22 +35,14 @@ jobs:
         with:
           commit: 'chore: version package'
           title: 'chore: version package'
-          version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+          version: pnpm changeset:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     name: Release
     needs: verify
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: write
@@ -83,11 +63,7 @@ jobs:
         with:
           createGithubReleases: ${{ github.ref == 'refs/heads/main' }}
           publish: pnpm changeset:publish
-          version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+          version: pnpm changeset:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -109,11 +85,7 @@ jobs:
   jsr:
     name: JSR
     needs: verify
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
       contents: read
@@ -129,8 +101,4 @@ jobs:
         uses: ./.github/actions/install-dependencies
 
       - name: Publish to JSR
-        run: pnpm version:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+        run: pnpm version:update && cd src && pnpx jsr publish --allow-slow-types --allow-dirty

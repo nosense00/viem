@@ -1,23 +1,11 @@
 name: Snapshot
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   canary:
     name: Release snapshot version
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write

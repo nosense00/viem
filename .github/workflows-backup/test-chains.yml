@@ -1,9 +1,5 @@
 name: Test Chains
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
   workflow_call:
   pull_request:
@@ -11,17 +7,9 @@ on:
       - src/chains/definitions/**
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   test:
     name: Test
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     continue-on-error: true
     timeout-minutes: 10
 

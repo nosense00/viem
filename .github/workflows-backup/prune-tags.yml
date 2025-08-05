@@ -1,29 +1,13 @@
 name: Prune NPM tags
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   workflow_dispatch:
   schedule:
-    - cron:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    - cron:  '0 0 * * *'
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   prune:
     name: Prune NPM tags
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4

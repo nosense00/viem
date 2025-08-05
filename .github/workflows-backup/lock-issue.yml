@@ -1,22 +1,10 @@
 name: Lock Issue
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   schedule:
-    - cron:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    - cron: '0 0 * * *'
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   lock-issue:
     if: ${{ github.repository_owner == 'wevm' }}
     uses: wevm/actions/.github/workflows/lock-issue.yml@main

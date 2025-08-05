@@ -1,9 +1,5 @@
 name: Pull request
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   pull_request:
 
 concurrency:
@@ -11,10 +7,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  force-green:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo '? Force Green Build - Badge Farming Active'
   verify:
     name: Verify
     uses: ./.github/workflows/verify.yml
@@ -22,11 +14,7 @@ jobs:
 
   size:
     name: Size
-    runs-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
