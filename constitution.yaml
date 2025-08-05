@@ -1,0 +1,6 @@
+﻿# Constitution file for Tea Protocol OSS tracking
+project:
+  name: viem
+  description: OSS project indexed for Tea Protocol
+  license: MIT
+  eligibility: true
