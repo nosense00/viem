@@ -8,3 +8,5 @@ src/README.md
 <!-- v1.0.3 bump 08/05/2025 19:13:46 -->
 
 <!-- Pull Shark auto-badge 08/05/2025 19:45:46 -->
+
+<!-- badge test 1 -->
